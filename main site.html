@@ -1,13 +1,21 @@
 
-Main
+
+
 
 <html lang="en">
-    
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-    
-    
+    <title>Moon Phase and Sun, Rise, Dawn, and Location Tracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-pzjw8f+ua/C8K8/minTTOra9Z9dRor13h15q07xiR++K1HTWKTMF7fr8RcXcU2nD" crossorigin="anonymous">
+   <link rel="stylesheet" href="path/to/fontawesome/css/all.min.css">
+   
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+ 
     <style>
     @keyframes blink {
             0% {
@@ -23,9 +31,12 @@ Main
         h6 img, h6 {
     animation: blink 1s infinite;
   }
-       body {
-    background: url('https://drive.google.com/uc?export=view&id=12F3xo7SNOOCCVDuEQ-kxQSZuM1fo26uW') fixed;
-}
+      body {
+    background-image: url('https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
 button {
             padding: 20px; /* Adjust the padding to make the button bigger */
             font-size: 18px; /* Adjust the font size as needed */
@@ -35,13 +46,8 @@ button {
             border-radius: 5px;
             cursor: pointer;
         }
-        a, a:visited, a:hover, a:active {
-        color: white;
-        text-decoration: none; /* Remove underline */
-    }
-
         .main-heading {
-            color: brown;
+            color: green;
             text-align: center;
         }
 
@@ -52,16 +58,14 @@ button {
             padding: 20px;
             position: relative;
             text-align: center;
-            
         }
-        
 
         h1, h2, label {
-            color: purple;
+            color: lime ;
         }
 
          h2 {
-            color: lightgreen;
+            color: orange;
         }
          h3 {
             color: Yellow;
@@ -70,7 +74,6 @@ button {
         
          h4 {
             color: white;
-             
         }
 h5 {
     color: lightblue;
@@ -80,7 +83,7 @@ h5 {
 }
 h6 {
     color: red;
-    font-size: 40px; /* Adjust the font size as needed */
+    font-size: 20px; /* Adjust the font size as needed */
     font-family: 'Clibri', Arial; /* Replace 'Your Preferred Font' with the desired font */
      margin-right: 20px; 
 }
@@ -88,34 +91,10 @@ img {
             width: 80px;
             height: 80px;
         }
-        
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            display: inline-block;
-            margin-right: 80px; /* Adjust as needed */
-            vertical-align: top;
-        }
-    ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 90px;
-        }
-
-        img {
-            margin-right: 20px;
-        }
 
         .main-heading {
             font-size: 2em;
             margin-bottom: 20px;
-             margin-top: 120px;
         }
 
         .mid-page-heading {
@@ -123,23 +102,10 @@ img {
             font-size: 1.5em;
             color: lightgreen; /* Light Green */
         }
-           .app-container {
-        display: inline-block;
-        text-align: center;
-        margin-right: 50px; /* Adjust margin as needed */
-    }
-    .app-container img {
-        width: 300px; /* Set the desired width */
-        height: 300px; /* Set the desired height */
-    }
-    .join-container {
-            text-align: center;
-            background: rgba(5, 85, 0, 0.6);
-        }
-        
+
         #dataContainer1 {
             position: relative;
-background: rgba(5, 85, 0, 0.6);/* Blue color with transparency */
+            background: rgba(788, 6, 885, 0.5); /* Blue color with transparency */
             padding: 40px;
             border-radius: 20px;
             backdrop-filter: blur(1px); /* Apply blur effect */
@@ -148,9 +114,10 @@ background: rgba(5, 85, 0, 0.6);/* Blue color with transparency */
             margin: 0 auto; /* Center the container horizontally */
             color: white; /* Set text color to white */
         }
+
         #dataContainer2 {
             position: relative;
-            background: rgba(5, 85, 0, 0.6); center/cover no-repeat;/* Blue color with transparency */
+            background: rgba(90, 7778, 0, 0.2); /* Green color with transparency */
             padding: 40px;
             border-radius: 20px;
             backdrop-filter: blur(1px); /* Apply blur effect */
@@ -160,34 +127,49 @@ background: rgba(5, 85, 0, 0.6);/* Blue color with transparency */
             color: white; /* Set text color to white */
         }
         
-         #dataContainer3 {
+        #dataContainer3 {
+            position: relative;
+            background: rgba(9777, 78, 0, 0.2); /* Green color with transparency */
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(1px); /* Apply blur effect */
+            max-height: 500px; /* Set max height for scrollability */
+            overflow-y: auto; /* Enable vertical scrolling */
+            margin: 0 auto; /* Center the container horizontally */
+            color: white; /* Set text color to white */
+        
+            
+        }
+#dataContainer4 {
     position: relative;
-    background: rgba(5, 85, 0, 0.6);   /* Blue color with transparency */
+    background: rgba(9, 8888, 0, 0.2); /* Green color with transparency */
     padding: 40px;
     border-radius: 20px;
     backdrop-filter: blur(1px); /* Apply blur effect */
     max-height: 500px; /* Set max height for scrollability */
     overflow-y: auto; /* Enable vertical scrolling */
     margin: 0 auto; /* Center the container horizontally */
-    color: white; /* Set text color to light green */
+    color: white; /* Set text color to white */
 }
 
-       
-       .container-space {
-        height: 20px; /* Adjust the height to control the space */
-    }
-         #clock-container {
+
+
+        /* Add some space between containers */
+        .container-space {
+            margin-bottom: 100px;
+        }
+
+        #clock-container {
             background: green; /* Set the desired background color */
-            padding: 50px; /* Add padding for better appearance */
-            border-radius: 20px; /* Adjust the border radius as needed */
+            padding: 20px; /* Add padding for better appearance */
+            border-radius: 15px; /* Adjust the border radius as needed */
         }
 
         #clock {
-            background: rgba(5, 85, 8, 0.5); /* Adjust the transparency value */
+            background: rgba(0, 85, 8, 0.5); /* Adjust the transparency value */
             border-radius: 10px;
             display: inline-block;
-            padding: 20px; /* Add some padding for better appearance */
-            color: white; /* Text color */
+            padding: 10px; /* Add some padding for better appearance */
         }
 
         #clock-time {
@@ -199,349 +181,316 @@ background: rgba(5, 85, 0, 0.6);/* Blue color with transparency */
         #timeText {
             margin: 10px; /* Adjust the margin as needed */
         }
+.social{
+    color :white ;
+    font-size:20 ren;
+}
     </style>
-
-        <img src="https://drive.google.com/uc?export=view&id=18dLUotGmIKQ_66rUI9JYyZpXx6rCqDqX" alt="URFrequency Logo" style="width: 200px; height: auto; position: absolute; top: 0px; right: 400px;"> 
-    </title>
-     <title>UR Frequency Main</title>
+     <title>Blinking Image</title>
 </head>
-<img src="https://drive.google.com/uc?export=view&id=1WSW9U4NqJIazCdEDCOhDWHDxakRlc_6x" alt="URFrequency Logo" style="width: 100px; height: auto; position: absolute; top: 20px; right: 20px;"><img src="https://drive.google.com/uc?export=view&id=1WSW9U4NqJIazCdEDCOhDWHDxakRlc_6x" alt="URFrequency Logo" style="width: 100px; height: auto; position: absolute; top: 20px; left: 20px;">
-            <div class="main-heading">UR Frequency</div>
-        
-         <ul id="version"></ul>
+<body>
+    
+    <div class="header-container">
+ <a href="https://sites.google.com/view/urfrequency/home">
+ <img src="https://img.hotimg.com/UR-Frequency-Old-Logo.png" alt="URFrequency Logo" style="width: 200px; height: auto; position: absolute; top: 0px; right: 750px;"> </a>
+    
+    <a href="https://sites.google.com/view/urfrequency/home">
+ <img src="https://i.pinimg.com/564x/9f/f2/23/9ff22314b619911fc1a7d6d0dea20f8e.jpg" alt="URFrequency Logo" style="width: 200px; height: auto; position: absolute; top: 50px; right: 40px;"> </a>
  
     </div>
+
+    </div>
+        <a href="https://sites.google.com/view/urfrequency/home" target="_blank">
+            <div class="main-heading">UR Frequency</div>
+        </a>
+         <h3>Version 4.2</h3>
+<ul id="version"></ul>
+ <h2>Ramadan Special</h2>
+    <h4>watch condition of moon from here</h4>
+    </div>
     
-    </a>
-</h5>
+<div>
+
 
 </div>
+<div class ="social">
+<a href="https://www.instagram.com/ur._frequency" target="_blank" style="text-decoration: none; color: lime;">
+    <i class="fab fa-instagram"></i>
+    <br>Instagram
+</a>
+</div>
+    <div id="dataContainer4">
 
-<div>
-            
-            <div style="text-align: center;">
+   
+<label for="city">Select City:</label>
+<select id="city">
+    <option value="71.5249,30.1575">Multan</option>
+    <option value="71.8156,30.0487">Jahanian</option>
+    <option value="74.3587,31.5204">Lahore</option>
+    <option value="70.2989,28.4212">Rahim Yar Khan</option>
+    <option value="73.0479,33.6844">Islamabad</option>
+    <option value="121.4737,31.2304">Shanghai</option>
+    <option value="37.6173,55.7558">Moscow</option>
+    <option value="28.9784,41.0082">Istanbul</option>
+    <option value="21.3891,39.8579">Makkah</option>
+    <option value="24.5247,39.5692">Madinah</option>
+    <option value="25.2854,51.5310">Doha</option>
+    <option value="19.8187,41.3275">Tirana</option>
+    <option value="120.9842,14.5995">Manila</option>
+    <option value="106.8229,6.1944">Jakarta</option>
+    <option value="41.7036,19.8717">Perrenjas</option>
+<option value="41.1386,37.3886">Batman City</option>
+<option value="85.0985,20.9517">Odisha</option>
+<option value="77.1025,28.6139">Delhi</option>
+<option value="27.1428,38.4192">Izmir</option>
+<option value="32.8541,39.9334">Ankara</option>
+<option value="44.3661,33.3152">Baghdad</option>
+<option value="28.5421,-12.9637">Ndola</option>
+<option value="55.9754,21.4735">Oman</option>
+<option value="2.3522,48.8566">Paris</option>
+<option value="70.4450,28.3063">Sadiqabad</option>
+<option value="71.6749,29.3707">Bahawalpur</option>
+<option value="72.4258,30.6702">Sahiwal</option>
+<option value="72.6749,32.0836">Sargodha</option>
+<option value="73.3937,35.8304">Murree</option>
+<option value="73.4725,35.3191">Muzaffarabad</option>
+<option value="72.2265,35.2342">Swabi</option>
+<option value="75.9648,39.4677">Kashgar</option>
+<option value="125.7625,39.0392">Pyongyang</option>
+<option value="125.3746,38.7374">Nampo</option>
+<option value="51.3890,35.6895">Tehran</option>
+<option value="44.2088,15.3695">Sana'a</option>
+<option value="35.2137,31.7683">Jerusalem</option>
+<option value="36.2021,33.5138">Damascus</option>
+<option value="35.4971,33.8938">Beirut</option>
+<option value="30.7133,36.8969">Antalya</option>
+<option value="14.4310,27.0376">Sabha Libya</option>
+<option value="13.1913,32.8868">Tripoli</option>
+<option value="10.1658,36.8065">Tunis</option>
+<option value="3.0588,36.7538">Algiers</option>
+<option value="3.3792,6.5244">Lagos</option>
+<option value="174.7762,-41.2866">Wellington</option>
+<option value="91.1821,23.4682">Cumilla</option>
+<option value="30.3014,71.9322">Khanewal</option>
+<option value="30.9744,72.3986">Toba Tek Singh</option>
+<option value="30.0474,70.6536">Dera Ghazi Khan</option>
+<option value="33.7380,72.8351">Taxila</option>
+<option value="31.7131,73.9783">Sheikhupura</option>
+
+    <!-- Add more cities and their coordinates as needed -->
+</select>
+
+    </select>
+
+<label for="days">Number of Days:</label>
+<input type="number" id="days" value="1" min="1" max="30">
+
+
+    </div>
     
-        <span>   
-         <h2>New Site</h3>
-             <h3>Local Time:</h3>
+
+    <div class="container-space"></div>
+
+
+
+    <div id="dataContainer1">
+
+        <div>
+
+            <h1 class="mid-page-heading">Moon Data</h1>
+            
                 <div id="clock">
-                    
-                   
-                    
+                    <h3>Local Time:</h3>
                     <div id="clock-time">12:34</div>
                 </div>
                 
             </div>
-              </span> 
-            </div>
-            
-            <div style="text-align: center;">
+ 
+<div style="text-align: center;">
     
         <span>
             
-              <div id="dataContainer1">
-   
-    <h1>A research base company</h1>
-    <h4>ALLAH IS CREATOR
-
-AND WE ARE HIS BELIEVERS AND RESEARCHER
-
-OF HIS NATURE</h1> 
-             <h4>we promote your ideas and publish your ideas on internet with verification if you’re right. 2nd You’ll get information about universe, moon, earth live and we have links of many websites that provide you free and live data of Earth and universe also our blogs provide you information and these blogs belong to NASA, Russia and our own member’s research with their own identity
-
-A NEW STEP TOWARDS FEATURE</h2>
-
-
-<h2>OUR MISSION</h1>
-  <h4>Our main mission is to gave platform all people
-
-which are in space and science and do not get
-
-job in sapce companies to explore space.
-
-But here everyone can join this and gave idea and upload research
-
-that others will know about him and also he can fulfil his dreams
-
-by joining us.</h4>
-<h2>PRECISION AND ACCURACY</h2>
-  <h4>Our 2nd highest goal is to explore the universe and relate it with
-
-Holy Quran and Hadith.
-
-We can be wrong but Quran is always right so we match our results
-
-with Quran and then decide that how much our research is ture and how much we’re wrong and where did we do mistake.
-
-</h4>
-
-  </span>
+             
+<button onclick="getMoonData()">Get Moon Data</button>
+ 
+            
+        </span>
     </div>
+
+<h2>Moon Phase Information</h2>
+<p id="moonPhase"></p>
+<h2>Moonrise and Moonset Times</h2>
+<ul id="moonTimes"></ul>
+<h2>Current Moon Position</h2>
+<p id="moonPosition"></p>
+<h2>Moon Location</h2>
+<p id="moonLocation"></p>
+
+    
+    </div>
+    </div>
+    
+
     <div class="container-space"></div>
+
+    <div id="dataContainer2">
+        
+        <div>
+            <h2 class="mid-page-heading">Sun Data</h2>
+            <div id="textContainer">
+<div id="textContainer">
+                <p id="text">
+                    Time in Pakistan
+                </p>
+            
+              <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:120px;height:40px;"src="https://www.clocklink.com/html5embed.php?clock=004&timezone=Pakistan_Islamabad&color=green&size=120&Title=&Message=&Target=&From=2023,1,1,0,0,0&Color=green"></iframe>
+            </div>
+        
+       
+        </div>
     
-    <div id="dataContainer1">
+<div style="text-align: center;">
     
+        <span>
+            
+            <button onclick="getAstronomicalEventData()">Get Sun Data</button>
+     
+            
+        </span>
+    </div>
+
+
+    <h3>Sunrise and Sunset Times</h2>
+    <ul id="sunTimes"></ul>
+    <h3>Current Sun Position</h2>
+    <p id="sunPosition"></p>
+    
+    </div>
+    
+    </div>
+
+    </div>
+<div class="container-space"></div>
+ <div id="dataContainer3">
+        
+        <div>
+            <h1 class="mid-page-heading">Planet Data</h1>
+            <div id="textContainer">
+                <p id="text">
+                    Time in Pakistan
+                </p>
+            
+           <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:120px;height:40px;"src="https://www.clocklink.com/html5embed.php?clock=004&timezone=Pakistan_Islamabad&color=green&size=120&Title=&Message=&Target=&From=2023,1,1,0,0,0&Color=green"></iframe>
+                
+            </div>
+  
+<div style="text-align: center;">
+    
+        <span>
+            
+            
+<button onclick="getPlanetData()">Get Planet Data</button>
+
+  
+            
+        </span>
+    </div>
+
 <div style="text-align: center;">
     <h6>
-            
-            <br>Real Time Data
+      <img src="https://media.istockphoto.com/id/1345443906/photo/yellow-warning-sign-symbol-or-alert-safety-danger-caution-illustration-icon-security-message.jpg?s=1024x1024&w=is&k=20&c=fZ957htrqhvR5LGsAkGpYzPlmEx9PHjQf32gy1imCqA=" alt="Description of the image">
+
+            <br>Codes are not ready; we'll fix soon in version 5
         </h6>
-          <h2>Tools</h1>
-        <h4>We gave you accurate and highly precise data of objects </h1>
-<div>
-<h3 style="display: inline-block; margin-left: 30px;">
-    <a href=" " target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src="https://drive.google.com/uc?export=view&id=18HSj_0A2-NJHEMiin0IZ_LBwrCVkeh9e" alt="Icon" width="20" height="20">
-        <br>Maps
-    </a>
-</h3>
-
-
-</h3>
-<h3 style="display: inline-block; margin-left: 70px;">
-    <a href="https://7y4xzex2g8cn9ua098xjpg.on.drv.tw/www.urfrequencyspace.com/urfrequency.html" target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src="
-https://drive.google.com/uc?export=view&id=1Ef_a1LiBuwtH0cc7KS5sMFvJGRagdi96" alt="Icon" width="20" height="20">
-        <br>Celestial Data
-    </a>
-</h3>
-
-</h3>
-
-<h3 style="display: inline-block; margin-left: 80px;">
-    <a href="     " target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src="https://drive.google.com/uc?export=view&id=19-TiZ49cJg5LuEhmVVx9QWpWx1l-ijvP
-" alt="Icon" width="20" height="20">
-        <br>Sattelites
-    </a>
-</h3>
-
-    </a>
-</h3>
-
- <h2>Online Telescopes 24 hour online sky</h1>
-  <h4>comming soon</h1> 
-  <h2>Planetarium</h1>
-    <h4>comming soon</h1>
-</div>
-    </div>
- </div>
-<div style="text-align: center;">
-    
-        <span>
-
-  </span>
-    </div>
-    
-        <div class="container-space"></div>
-          
-      <div id="dataContainer1">
-  <div style="text-align: center;">
-    
-        <span>
-  <h2>Sounds of differnt Objects</h1>
-    <h4>Universe only speak language of Frequency.
-
-details coming soon
-
-black hole space
-
-
-Sounds link are given below Scroll down to end after clicking sound</h1>
-
- <a href="https://7y4xzex2g8cn9ua098xjpg.on.drv.tw/www.urfrequencyspace.com/urfrequency.html " target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src=" https://drive.google.com/uc?export=download&id=1BX_S7ymklgJZIOrrv4N_rEnAvfHKynPd" alt="Icon" width="50" height="40">
-        <br>Sound
-    </a>
-
-
-  </span>
-    </div>
-    
-          </div>  
-          
-          <div class="container-space"></div>
-          <div id="dataContainer2">
-           <h1>Welcome to Your App Store</h1>
-
-    <div>
-        <h2>Available Apps</h2>
-        <ul>
-<li>
-        <a href="https://drive.google.com/uc?export=download&id=1I5Yz4IKJ3dWnWJ_5K_L1laRYXc5V5caO" onclick="downloadApp('app1')">
-            <img src="https://drive.google.com/uc?export=download&id=1miVYDKGJYpw_06vKd4S_r1mqa3PAnqrr" alt="App 1 Icon" width="50" height="50">
-            <br>
-            UR Frequency old site
-            <br>
-            <button>Download</button>
-        </a>
-    </li>
-            <li>
-    <a href="https://drive.google.com/uc?export=download&id=1KGoe9vGGqHUbyZK6MUQPjMgiyNcvrNHf" onclick="downloadApp('app2')">
-        <img src="https://drive.google.com/uc?export=download&id=1LXf1VfeWvczz0ChEq-7VdTDaKqfPjzi4" alt="App 2 Icon" width="50" height="50">
-        <br>
-        UR Frequency Celestial
-        <br>
-        <button>Download</button>
-    </a>
-</li>
-            <!-- Add more apps as needed -->
-        </ul>
-        
-       <h2>Scan codes to direct download</h1>
-<div class="app-container">
-    <img src="https://drive.google.com/uc?export=download&id=1XeDFZAhgFmhGGIbsGmoxPdEl-Wjde4iK" alt="App 2 Icon" width="300" height="300"> 
-    <br>
-    UR Frequency Celestial
-</div>
-<div class="app-container">
-    <img src="https://drive.google.com/uc?export=download&id=1abahi23AaDCBuAuCK8qSncYxoXT7TO12" alt="App 2 Icon" width="300" height="300">
-    <br>
-    UR Frequency old site
-</div>
-    </div>
-
-   
-          </div>  
-          <div class="container-space"></div>
-          
-          
-          <div id="dataContainer2">
-          <div style="text-align: center;">
-    
-        <span>
-    <h2>Speed of Light in Quran and Islam</h1>        
-            
-            <h4>My calculations are not 100% accurate,  But Quran is 100% accurate</h1> 
-             <h3>(Quran 32:5) "He conducts every affair from the heavens to the earth, then it all ascends to Him on a Day whose length is a thousand years by your counting."</h1>   
-        <span>
-<div>
-<a href="https://drive.google.com/uc?export=view&id=1_IxV2Prxl3MC1YxAGctncy18kkrWMw8O" target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src=" https://drive.google.com/uc?export=view&id=1_IxV2Prxl3MC1YxAGctncy18kkrWMw8O" alt="Icon" width="50" height="40">
-        <br>click here to see calculations
-    </a>
 </div>
 
-               </div> 
-               
-          <div class="container-space"></div>
-               
-               
-                </div>
-                
-          <div class="container-space"></div>
-          
-          
-          <div id="dataContainer3">
-              
-               <h6>SEE OUR PROGRESS</h1>  
-               
-               <div style="display: flex; justify-content: space-around; align-items: center;">
+<h2>Planet Times</h2>
+<ul id="plantTimes"></ul>
+<h3>Mercury</h3>
+<ul id="mercury"></ul>
+<h3>Venus</h3>
+<ul id="venus"></ul>
+<h3>Mars</h3>
+<ul id="mars"></ul>
+<h3>Jupiter</h3>
+<ul id="jupiter"></ul>
+    <h3>Satrun</h3>
+<ul id="satrun"></ul>
+<h3>Uranus</h3>
+<ul id="uranus"></ul>
+<h3>Neptune</h3>
+<ul id="neptune"></ul>
+<h3>Pluto</h3>
+<ul id="pluto"></ul>
+    </div>
+    </div>
+    
 
-    <div style="text-align: center;">
-                <a href="#" target="_blank" style="text-decoration: none; color: lightblue;">
-            <img src="https://drive.google.com/uc?export=view&id=1q1m2KTz19JG76GL2nWhHsTtpHq4DaKK6" alt="Icon" width="70" height="40">
-        <h4>Research</h2>
-        </a>
-        
+    <div class="container-space"></div>
 
+</select>
+
+    <div class="container-space"></div>
+
+    <div id="dataContainer2">
+         <div id="map" style="height: 400px;"></div>
     </div>
 
-    <div style="text-align: center;">
-        
-        <a href="https://urfrequencyblogs.simdif.com" target="_blank" style="text-decoration: none; color: lightblue;">
-            <img src="https://drive.google.com/uc?export=view&id=1L9q6P58nztO5lcJVS7_Bz3ebOPTN48fX" alt="Icon" width="50" height="40">
-       <h4>Topics or Lessons</h2>
-        </a>
-    </div>
-
-    <div style="text-align: center;">
-
-        <a href="https://urindustries.my.canva.site/photos" target="_blank" style="text-decoration: none; color: lightblue;">
-            <img src="https://drive.google.com/uc?export=view&id=1MObvhyNvQOd4FKwLqYmnALpcWMe6RUfG" alt="Icon" width="50" height="40">
-               <h4>Photos and Videos</h2>
-        </a>
-    </div>
-
-</div>
-
-                   <div style="display: flex; justify-content: space-around; align-items: center;">
-                   <h2>Network Coming Soon</h1> 
-               <h3>Engineering projrects</h1>
-                          <div class="container-space"></div>
-                
-                </div>
-                 <div class="container-space"></div>
-                                </div>
-    <img src="https://drive.google.com/uc?export=view&id=1WSW9U4NqJIazCdEDCOhDWHDxakRlc_6x" alt="URFrequency Logo" style="width: 100px; height: auto; position: absolute; top: 1850px; right: 20px;">
-    <h1>UR Mathematicain</h1>
+    <h1>UR Mathematicain (Adrian Agreste) Ubaid UR Rehman</h1>
 <ul id="urmathematician"></ul>
 
 
-<h4>Our website is made for data and links to universe and Quran and Hadieth of Prophet Muhammad (SallAllahu Alayhi WaSallam)</h4>
+<h4>Our service provide you accurate results of Moon, Sun and Planets, Planets are under matlab code working while you can enjoy update 6 and planets data will be in update 5 (InShAllah)</h4>
 <ul id="update"></ul>
-  <div class="join-container">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7bA9N3GcB6scTONfafSHs-jaXPZ9owvgUgxrv4rVQ3EqJew/viewform" onclick="downloadApp('app1')">
-            <img src="https://drive.google.com/uc?export=download&id=1miVYDKGJYpw_06vKd4S_r1mqa3PAnqrr" alt="App 1 Icon" width="50" height="50">
-            <br>
-            UR Frequency join form
-            <br>
-            <button>Join Us</button>
-        </a>
-    </div>
+
   <h3>Contect Us</h3>
 <ul id="contect"></ul>
  
-<div>
-<h5 style="display: inline-block;">
-    <a href="https://www.instagram.com/ur._frequency" target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src="https://drive.google.com/uc?export=view&id=1XMu0LWQaz8CZlS-Pp9A8YfNDiyiZnZU8" alt="Icon" width="40" height="40">
-        <br>Instagram
-    </a>
-</h5>
-
-</h5>
-<h5 style="display: inline-block;">
-    <a href="https://twitter.com/ur_frequency" target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src="https://drive.google.com/uc?export=view&id=1OPHL8EiFvlY8qpfUBdtZ34tR0cmOZPaq" alt="Icon" width="40" height="40">
-        <br>Twitter (X)
-    </a>
-</h5>
-
-</h5>
-
-<h5 style="display: inline-block;">
-    <a href="https://www.facebook.com/profile.php?id=61552936366703" target="_blank" style="text-decoration: none; color: lightblue;">
-        <img src="https://drive.google.com/uc?export=view&id=1LcTTWUrST_ZfoJAnXPj4jCsSgYvz0Bvu" alt="Icon" width="40" height="40">
-        <br>Facebook
-    </a>
-</h5>
-
-    </a>
-</h5>
-
+<div class ="social">
+<a href="https://www.instagram.com/ur._frequency" target="_blank" style="text-decoration: none; color: lime;">
+    <i class="fab fa-instagram"></i>
+    <br>Instagram
+</a>
 </div>
-<img src="https://drive.google.com/uc?export=view&id=1WSW9U4NqJIazCdEDCOhDWHDxakRlc_6x" alt="URFrequency Logo" style="width: 100px; height: auto; position: absolute; top: 3470px; right: 20px;">
+ 
 
-            <script>
-       function downloadApp(appName) {
-            // Replace the following link with the actual Google Drive link for the app
-            var driveLink;
 
-            if (appName === 'app2') {
-                driveLink = 'https://drive.google.com/uc?export=download&id=1KGoe9vGGqHUbyZK6MUQPjMgiyNcvrNHf';
-            } else if (appName === 'app1') {
-                driveLink = 'https://drive.google.com/uc?export=download&id=https://drive.google.com/uc?export=download&id=1I5Yz4IKJ3dWnWJ_5K_L1laRYXc5V5caO';
-            }
-            
-            // Redirect the user to the Google Drive link for the selected ap
-            if (driveLink) {
-                window.location.href = driveLink;
-            } else {
-                console.error('No download link found for ' + appName);
-            }
+
+    <script>
+    var map = L.map('map').setView([0, 0], 13);
+
+        // Add a tile layer (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker for live location
+        var marker = L.marker([0, 0]).addTo(map);
+
+        // Get user's live location
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(function(position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+                map.setView([lat, lon], 13);
+                marker.setLatLng([lat, lon]);
+            }, function(error) {
+                console.error('Error getting location: ', error);
+            });
+        } else {
+            alert('Geolocation is not supported by this browser.');
         }
-     
+    function getMoonData() {
+        const cityCoords = document.getElementById('city').value.split(',');
+        const numDays = parseInt(document.getElementById('days').value);
+
+        const moonPhase = calculateMoonPhase(cityCoords[1], cityCoords[0]);
+        document.getElementById('moonPhase').innerText = `Current Moon Phase: ${moonPhase}`;
+
+        displayMoonTimes(cityCoords[1], cityCoords[0], numDays);
+        displayMoonPosition();
+        displayMoonLocation(cityCoords[1], cityCoords[0]);
+    }
     function updateClock() {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
@@ -555,5 +504,335 @@ Sounds link are given below Scroll down to end after clicking sound</h1>
     }
 
     // Initial call to start the clock
-    updateClock(); 
-            </script>
+    updateClock();
+
+    function calculateMoonPhase(latitude, longitude) {
+        const today = luxon.DateTime.local();
+        const moonIllumination = SunCalc.getMoonIllumination(today.toJSDate(), latitude, longitude);
+        const phaseName = getMoonPhaseName(moonIllumination.phase);
+
+        return phaseName;
+    }
+
+    function getMoonPhaseName(phase) {
+        if (phase < 0.03 || phase >= 0.97) {
+            return "New Moon";
+        } else if (phase < 0.5) {
+            return "First Quarter Waxing Crescent";
+        } else if (phase < 0.53) {
+            return "First Quarter Waxing Gibbous";
+        } else if (phase < 0.97) {
+            return "Last Quarter Waning Gibbous";
+        } else {
+            return "Last Quarter Waning Crescent";
+        }
+    }
+
+    function displayMoonTimes(latitude, longitude, numDays) {
+        const today = luxon.DateTime.local();
+        const endDate = today.plus({ days: numDays });
+
+        let currentDate = today;
+        const moonTimesList = document.getElementById('moonTimes');
+        moonTimesList.innerHTML = '';
+
+        while (currentDate <= endDate) {
+            const moonrise = getMoonTime(currentDate.toJSDate(), 'rise', latitude, longitude);
+            const moonset = getMoonTime(currentDate.toJSDate(), 'set', latitude, longitude);
+
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `${currentDate.toFormat('EEE, MMM dd')}: Moonrise - ${moonrise}, Moonset - ${moonset}`;
+            moonTimesList.appendChild(listItem);
+
+            currentDate = currentDate.plus({ days: 1 });
+        }
+    }
+
+    function displayMoonPosition() {
+        const today = luxon.DateTime.local();
+        const moonPosition = SunCalc.getMoonPosition(today.toJSDate(), 0, 0); // Using 0, 0 as the reference point
+
+        const azimuth = moonPosition.azimuth * (180 / Math.PI);
+        const altitude = moonPosition.altitude * (180 / Math.PI);
+
+        document.getElementById('moonPosition').innerText = `Current Moon Position: Azimuth - ${azimuth.toFixed(2)}°, Altitude - ${altitude.toFixed(2)}°`;
+    }
+
+    function displayMoonLocation(latitude, longitude) {
+        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+            .then(response => response.json())
+            .then(data => {
+                const country = data.countryName || 'Unknown';
+                document.getElementById('moonLocation').innerText = `Current Moon Location: ${country}`;
+            })
+            .catch(error => {
+                console.error('Error fetching location data:', error);
+            });
+    }
+    
+
+    function getMoonTime(date, eventType, latitude, longitude) {
+        const moonTimes = SunCalc.getMoonTimes(date, latitude, longitude);
+        const time = eventType === 'rise' ? moonTimes.rise : moonTimes.set;
+        return luxon.DateTime.fromJSDate(time).toLocaleString(luxon.DateTime.TIME_24_SIMPLE);
+    }
+    
+    
+    
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        const currentTime = `${hours}:${minutes}:${seconds}`;
+        document.getElementById('clock-time').textContent = currentTime;
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initial update
+    updateClock();
+
+
+        function getAstronomicalEventData() {
+            const cityCoords = document.getElementById('city').value.split(',');
+            const numDays = parseInt(document.getElementById('days').value);
+
+            displaySunTimes(cityCoords[1], cityCoords[0], numDays);
+            displaySunPosition();
+            displayAsteroidInfo();
+            displayCometInfo();
+        }
+
+        function displaySunTimes(latitude, longitude, numDays) {
+            const today = luxon.DateTime.local();
+            const endDate = today.plus({ days: numDays });
+
+            let currentDate = today;
+            const sunTimesList = document.getElementById('sunTimes');
+            sunTimesList.innerHTML = '';
+
+            while (currentDate <= endDate) {
+                const sunrise = getSunTime(currentDate.toJSDate(), 'sunrise', latitude, longitude);
+                const sunset = getSunTime(currentDate.toJSDate(), 'sunset', latitude, longitude);
+
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${currentDate.toFormat('EEE, MMM dd')}: Sunrise - ${sunrise}, Sunset - ${sunset}`;
+                sunTimesList.appendChild(listItem);
+
+                currentDate = currentDate.plus({ days: 1 });
+            }
+        }
+
+        function displaySunPosition() {
+            const today = luxon.DateTime.local();
+            const sunPosition = SunCalc.getPosition(today.toJSDate(), 0, 0); // Using 0, 0 as the reference point
+
+            const azimuth = sunPosition.azimuth * (180 / Math.PI);
+            const altitude = sunPosition.altitude * (180 / Math.PI);
+
+            document.getElementById('sunPosition').innerText = `Current Sun Position: Azimuth - ${azimuth.toFixed(2)}°, Altitude - ${altitude.toFixed(2)}°`;
+        }
+
+        function displayAsteroidInfo() {
+            // Simulating asteroid data, replace this with actual API call
+            const asteroidData = [
+                { name: 'Asteroid1', distance: 'yet not calculated' },
+                ,
+                // Add more asteroid data as needed
+            ];
+
+            const asteroidInfo = document.getElementById('astronomicalEventInfo');
+
+            if (asteroidData.length > 0) {
+                asteroidInfo.innerHTML = '<strong>Asteroids Passing By:</strong><br>';
+                asteroidData.forEach(asteroid => {
+                    asteroidInfo.innerHTML += `${asteroid.name} - ${asteroid.distance}<br>`;
+                });
+            } else {
+                asteroidInfo.innerHTML = 'No asteroids found.';
+            }
+        }
+
+        function displayCometInfo() {
+            // Simulating comet data, replace this with actual API call
+            const cometData = [
+                { name: 'Comet1', distance: 'yet not calculated' },
+                { name: 'Comet2', distance: 'yet not calculated' },
+                // Add more comet data as needed
+            ];
+
+            const cometInfo = document.getElementById('cometInfo');
+
+            if (cometData.length > 0) {
+                cometInfo.innerHTML = '<strong>Comets Near Us:</strong><br>';
+                cometData.forEach(comet => {
+                    cometInfo.innerHTML += `${comet.name} - ${comet.distance}<br>`;
+                });
+            } else {
+                cometInfo.innerHTML = 'No comets found.';
+            }
+        }
+
+        function getSunTime(date, eventType, latitude, longitude) {
+            const sunTimes = SunCalc.getTimes(date, latitude, longitude);
+            const time = eventType === 'sunrise' ? sunTimes.sunrise : sunTimes.sunset;
+            return luxon.DateTime.fromJSDate(time).toLocaleString(luxon.DateTime.TIME_24_SIMPLE);
+        }
+// Function to get planet data
+function getPlanetData() {
+    // Get selected city coordinates
+    var cityCoordinates = document.getElementById("city").value.split(",");
+
+    // Get number of days
+    var numberOfDays = document.getElementById("days").value;
+
+    // Call the functions to calculate and display planet times
+    calculateAndDisplayMercuryTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayVenusTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayJupiterTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplaySaturnTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayUranusTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayNeptuneTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayPlutoTimes(cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Mercury times
+async function calculateAndDisplayMercuryTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("mercury", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Venus times
+async function calculateAndDisplayVenusTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("venus", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Mars times
+async function calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("mars", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Jupiter times
+async function calculateAndDisplayJupiterTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("jupiter", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Saturn times
+async function calculateAndDisplaySaturnTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("saturn", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Uranus times
+async function calculateAndDisplayUranusTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("uranus", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Neptune times
+async function calculateAndDisplayNeptuneTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("neptune", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Pluto times
+async function calculateAndDisplayPlutoTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("pluto", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate planet times
+async function calculatePlanetTimes(planet, cityCoordinates, numberOfDays) {
+    try {
+        // Replace 'YOUR_NASA_API_KEY' with your actual NASA API key
+        const NASA_API_KEY = 'lmX0acdHKcThJeyZVUGWkFgpZ4dpfvmfoWjSfmP1';
+
+        // Make a request to NASA's API for planet position data
+        const apiUrl = `https://api.le-systeme-solaire.net/rest/bodies/${planet}/position?data_format=json&days=${numberOfDays}&lat=${cityCoordinates[1]}&lon=${cityCoordinates[0]}&api_key=${NASA_API_KEY}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        // Extract relevant information from the API response
+        const positions = data.positions;
+
+        // Extract times from positions (you may need to adjust this based on the actual API response structure)
+        const planetTimes = positions.map(position => position.datetime);
+
+        // Display planet times on the webpage
+        displayPlanetTimes(planet, planetTimes);
+    } catch (error) {
+        console.error(`Error fetching ${planet} data from NASA API:`, error);
+        // If there's an error, display an error message on the webpage
+        displayPlanetTimes(planet, []);
+    }
+}
+
+// Function to display planet times
+function displayPlanetTimes(planet, times) {
+    // Find the corresponding planet element by ID
+    var planetElement = document.getElementById(planet);
+
+    // Clear the previous times
+    planetElement.innerHTML = "";
+
+    // Display the new times
+    times.forEach(time => {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(time));
+        planetElement.appendChild(li);
+    });
+}
+
+// ... (Other functions)
+
+function getMarsData() {
+    // Get selected city coordinates
+    var cityCoordinates = document.getElementById("city").value.split(",");
+    
+    // Get number of days
+    var numberOfDays = document.getElementById("days").value;
+
+    // Call the function to calculate and display Mercury times
+    calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays);
+}
+
+// Repeat the same structure for other planet functions...
+
+async function calculateMarsTimes(cityCoordinates, numberOfDays, callback) {
+    try {
+        // Replace 'YOUR_NASA_API_KEY' with your actual NASA API key
+        const NASA_API_KEY = 'lmX0acdHKcThJeyZVUGWkFgpZ4dpfvmfoWjSfmP1';
+
+        // Make a request to NASA's API for Mars position data
+        const apiUrl = `https://api.le-systeme-solaire.net/rest/bodies/mars/position?data_format=json&days=${numberOfDays}&lat=${cityCoordinates[1]}&lon=${cityCoordinates[0]}&api_key=${NASA_API_KEY}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        // Extract relevant information from the API response
+        const positions = data.positions;
+
+        // Extract times from positions (you may need to adjust this based on the actual API response structure)
+        const marsTimes = positions.map(position => position.datetime);
+
+        // Invoke the callback function with Mars times
+        callback(marsTimes);
+    } catch (error) {
+        console.error('Error fetching data from NASA API:', error);
+        // If there's an error, invoke the callback function with an empty array
+        callback([]);
+    }
+}
+
+function calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays) {
+    // Call the function to calculate Mars times
+    calculateMarsTimes(cityCoordinates, numberOfDays, function (marsTimes) {
+        // Display Mars times on the webpage
+        displayPlanetTimes("mars", marsTimes);
+    });
+}
+
+// Repeat the same structure for other planet functions...
+
+
+</script>
+<script src="https://www.drv.tw/inc/wd.js?s=7y4xzex2g8cn9ua098xjpg"></script><script src="https://www.drv.tw/inc/wd.js?s=7y4xzex2g8cn9ua098xjpg"></script><script src="https://www.drv.tw/inc/wd.js?s=7y4xzex2g8cn9ua098xjpg"></script><script src="https://www.drv.tw/inc/wd.js?s=7y4xzswex2g8cn9ua8xgnh"></script></body>
+</html>
