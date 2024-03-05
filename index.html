@@ -186,6 +186,9 @@ img {
     color :white ;
     font-size:20 ren;
 }
+        #map {
+      height: 500px;
+    }
     </style>
      <title>Blinking Image</title>
 </head>
@@ -574,7 +577,7 @@ img {
          <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
- 
+    </div>
 
     <h1>UR Mathematicain (Adrian Agreste) Ubaid UR Rehman</h1>
 <ul id="urmathematician"></ul>
@@ -601,7 +604,7 @@ img {
 
     // Add marker for the moon
     var moonIcon = L.icon({
-      iconUrl: 'https://cdn.iconscout.com/icon/free/png-256/moon-84-459467.png',
+      iconUrl: 'https://img.hotimg.com/Screen_Shot_2024-03-05_at_11.47.50_PM-removebg-preview.png',
       iconSize: [32, 32],
       iconAnchor: [16, 16],
       popupAnchor: [0, -16]
@@ -634,29 +637,6 @@ img {
 
     // Initial update
     updateMoonPosition();
-    var map = L.map('map').setView([0, 0], 13);
-
-        // Add a tile layer (OpenStreetMap)
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Add a marker for live location
-        var marker = L.marker([0, 0]).addTo(map);
-
-        // Get user's live location
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(function(position) {
-                var lat = position.coords.latitude;
-                var lon = position.coords.longitude;
-                map.setView([lat, lon], 13);
-                marker.setLatLng([lat, lon]);
-            }, function(error) {
-                console.error('Error getting location: ', error);
-            });
-        } else {
-            alert('Geolocation is not supported by this browser.');
-        }
     function getMoonData() {
         const cityCoords = document.getElementById('city').value.split(',');
         const numDays = parseInt(document.getElementById('days').value);
