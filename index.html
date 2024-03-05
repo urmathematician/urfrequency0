@@ -569,8 +569,12 @@ img {
     <div class="container-space"></div>
 
     <div id="dataContainer2">
-         <div id="map" style="height: 400px;"></div>
-    </div>
+         
+         <h1>The Masjid icon tell us about the current location of moon in world while about phase you should see top container</h1>
+         <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+ 
 
     <h1>UR Mathematicain (Adrian Agreste) Ubaid UR Rehman</h1>
 <ul id="urmathematician"></ul>
@@ -587,6 +591,49 @@ img {
 
 
     <script>
+
+           var map = L.map('map').setView([0, 0], 2);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add marker for the moon
+    var moonIcon = L.icon({
+      iconUrl: 'https://cdn.iconscout.com/icon/free/png-256/moon-84-459467.png',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16]
+    });
+
+    var moonMarker = L.marker([0, 0], {
+      icon: moonIcon
+    }).addTo(map);
+
+    // Function to update moon position
+    function updateMoonPosition() {
+      // Fetch moon phase data
+      fetch('https://api.farmsense.net/v1/moonphases/?date=today')
+        .then(response => response.json())
+        .then(data => {
+          // Extract moon position
+          var latitude = parseFloat(data[0].Latitude);
+          var longitude = parseFloat(data[0].Longitude);
+
+          // Update moon marker position
+          moonMarker.setLatLng([latitude, longitude]).update();
+        })
+        .catch(error => {
+          console.error('Error fetching moon phase data:', error);
+        });
+    }
+
+    // Update moon position every 10 seconds
+    setInterval(updateMoonPosition, 10000);
+
+    // Initial update
+    updateMoonPosition();
     var map = L.map('map').setView([0, 0], 13);
 
         // Add a tile layer (OpenStreetMap)
