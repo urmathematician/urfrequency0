@@ -624,6 +624,360 @@ img {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
 <script>
 
+    function getMoonData() {
+        const cityCoords = document.getElementById('city').value.split(',');
+        const numDays = parseInt(document.getElementById('days').value);
+
+        const moonPhase = calculateMoonPhase(cityCoords[1], cityCoords[0]);
+        document.getElementById('moonPhase').innerText = `Current Moon Phase: ${moonPhase}`;
+
+        displayMoonTimes(cityCoords[1], cityCoords[0], numDays);
+        displayMoonPosition();
+        displayMoonLocation(cityCoords[1], cityCoords[0]);
+    }
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        const clockElement = document.getElementById('clock');
+        clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+        setTimeout(updateClock, 1000); // Update every second
+    }
+
+    // Initial call to start the clock
+    updateClock();
+
+    function calculateMoonPhase(latitude, longitude) {
+        const today = luxon.DateTime.local();
+        const moonIllumination = SunCalc.getMoonIllumination(today.toJSDate(), latitude, longitude);
+        const phaseName = getMoonPhaseName(moonIllumination.phase);
+
+        return phaseName;
+    }
+
+    function getMoonPhaseName(phase) {
+        if (phase < 0.03 || phase >= 0.97) {
+            return "New Moon";
+        } else if (phase < 0.5) {
+            return "First Quarter Waxing Crescent";
+        } else if (phase < 0.53) {
+            return "First Quarter Waxing Gibbous";
+        } else if (phase < 0.97) {
+            return "Last Quarter Waning Gibbous";
+        } else {
+            return "Last Quarter Waning Crescent";
+        }
+    }
+
+    function displayMoonTimes(latitude, longitude, numDays) {
+        const today = luxon.DateTime.local();
+        const endDate = today.plus({ days: numDays });
+
+        let currentDate = today;
+        const moonTimesList = document.getElementById('moonTimes');
+        moonTimesList.innerHTML = '';
+
+        while (currentDate <= endDate) {
+            const moonrise = getMoonTime(currentDate.toJSDate(), 'rise', latitude, longitude);
+            const moonset = getMoonTime(currentDate.toJSDate(), 'set', latitude, longitude);
+
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `${currentDate.toFormat('EEE, MMM dd')}: Moonrise - ${moonrise}, Moonset - ${moonset}`;
+            moonTimesList.appendChild(listItem);
+
+            currentDate = currentDate.plus({ days: 1 });
+        }
+    }
+
+    function displayMoonPosition() {
+        const today = luxon.DateTime.local();
+        const moonPosition = SunCalc.getMoonPosition(today.toJSDate(), 0, 0); // Using 0, 0 as the reference point
+
+        const azimuth = moonPosition.azimuth * (180 / Math.PI);
+        const altitude = moonPosition.altitude * (180 / Math.PI);
+
+        document.getElementById('moonPosition').innerText = `Current Moon Position: Azimuth - ${azimuth.toFixed(2)}°, Altitude - ${altitude.toFixed(2)}°`;
+    }
+
+    function displayMoonLocation(latitude, longitude) {
+        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+            .then(response => response.json())
+            .then(data => {
+                const country = data.countryName || 'Unknown';
+                document.getElementById('moonLocation').innerText = `Current Moon Location: ${country}`;
+            })
+            .catch(error => {
+                console.error('Error fetching location data:', error);
+            });
+    }
+    
+
+    function getMoonTime(date, eventType, latitude, longitude) {
+        const moonTimes = SunCalc.getMoonTimes(date, latitude, longitude);
+        const time = eventType === 'rise' ? moonTimes.rise : moonTimes.set;
+        return luxon.DateTime.fromJSDate(time).toLocaleString(luxon.DateTime.TIME_24_SIMPLE);
+    }
+    
+    
+    
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        const currentTime = `${hours}:${minutes}:${seconds}`;
+        document.getElementById('clock-time').textContent = currentTime;
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initial update
+    updateClock();
+
+
+        function getAstronomicalEventData() {
+            const cityCoords = document.getElementById('city').value.split(',');
+            const numDays = parseInt(document.getElementById('days').value);
+
+            displaySunTimes(cityCoords[1], cityCoords[0], numDays);
+            displaySunPosition();
+            displayAsteroidInfo();
+            displayCometInfo();
+        }
+
+        function displaySunTimes(latitude, longitude, numDays) {
+            const today = luxon.DateTime.local();
+            const endDate = today.plus({ days: numDays });
+
+            let currentDate = today;
+            const sunTimesList = document.getElementById('sunTimes');
+            sunTimesList.innerHTML = '';
+
+            while (currentDate <= endDate) {
+                const sunrise = getSunTime(currentDate.toJSDate(), 'sunrise', latitude, longitude);
+                const sunset = getSunTime(currentDate.toJSDate(), 'sunset', latitude, longitude);
+
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${currentDate.toFormat('EEE, MMM dd')}: Sunrise - ${sunrise}, Sunset - ${sunset}`;
+                sunTimesList.appendChild(listItem);
+
+                currentDate = currentDate.plus({ days: 1 });
+            }
+        }
+
+        function displaySunPosition() {
+            const today = luxon.DateTime.local();
+            const sunPosition = SunCalc.getPosition(today.toJSDate(), 0, 0); // Using 0, 0 as the reference point
+
+            const azimuth = sunPosition.azimuth * (180 / Math.PI);
+            const altitude = sunPosition.altitude * (180 / Math.PI);
+
+            document.getElementById('sunPosition').innerText = `Current Sun Position: Azimuth - ${azimuth.toFixed(2)}°, Altitude - ${altitude.toFixed(2)}°`;
+        }
+
+        function displayAsteroidInfo() {
+            // Simulating asteroid data, replace this with actual API call
+            const asteroidData = [
+                { name: 'Asteroid1', distance: 'yet not calculated' },
+                ,
+                // Add more asteroid data as needed
+            ];
+
+            const asteroidInfo = document.getElementById('astronomicalEventInfo');
+
+            if (asteroidData.length > 0) {
+                asteroidInfo.innerHTML = '<strong>Asteroids Passing By:</strong><br>';
+                asteroidData.forEach(asteroid => {
+                    asteroidInfo.innerHTML += `${asteroid.name} - ${asteroid.distance}<br>`;
+                });
+            } else {
+                asteroidInfo.innerHTML = 'No asteroids found.';
+            }
+        }
+
+        function displayCometInfo() {
+            // Simulating comet data, replace this with actual API call
+            const cometData = [
+                { name: 'Comet1', distance: 'yet not calculated' },
+                { name: 'Comet2', distance: 'yet not calculated' },
+                // Add more comet data as needed
+            ];
+
+            const cometInfo = document.getElementById('cometInfo');
+
+            if (cometData.length > 0) {
+                cometInfo.innerHTML = '<strong>Comets Near Us:</strong><br>';
+                cometData.forEach(comet => {
+                    cometInfo.innerHTML += `${comet.name} - ${comet.distance}<br>`;
+                });
+            } else {
+                cometInfo.innerHTML = 'No comets found.';
+            }
+        }
+
+        function getSunTime(date, eventType, latitude, longitude) {
+            const sunTimes = SunCalc.getTimes(date, latitude, longitude);
+            const time = eventType === 'sunrise' ? sunTimes.sunrise : sunTimes.sunset;
+            return luxon.DateTime.fromJSDate(time).toLocaleString(luxon.DateTime.TIME_24_SIMPLE);
+        }
+// Function to get planet data
+function getPlanetData() {
+    // Get selected city coordinates
+    var cityCoordinates = document.getElementById("city").value.split(",");
+
+    // Get number of days
+    var numberOfDays = document.getElementById("days").value;
+
+    // Call the functions to calculate and display planet times
+    calculateAndDisplayMercuryTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayVenusTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayJupiterTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplaySaturnTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayUranusTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayNeptuneTimes(cityCoordinates, numberOfDays);
+    calculateAndDisplayPlutoTimes(cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Mercury times
+async function calculateAndDisplayMercuryTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("mercury", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Venus times
+async function calculateAndDisplayVenusTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("venus", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Mars times
+async function calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("mars", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Jupiter times
+async function calculateAndDisplayJupiterTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("jupiter", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Saturn times
+async function calculateAndDisplaySaturnTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("saturn", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Uranus times
+async function calculateAndDisplayUranusTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("uranus", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Neptune times
+async function calculateAndDisplayNeptuneTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("neptune", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate and display Pluto times
+async function calculateAndDisplayPlutoTimes(cityCoordinates, numberOfDays) {
+    calculatePlanetTimes("pluto", cityCoordinates, numberOfDays);
+}
+
+// Function to calculate planet times
+async function calculatePlanetTimes(planet, cityCoordinates, numberOfDays) {
+    try {
+        // Replace 'YOUR_NASA_API_KEY' with your actual NASA API key
+        const NASA_API_KEY = 'lmX0acdHKcThJeyZVUGWkFgpZ4dpfvmfoWjSfmP1';
+
+        // Make a request to NASA's API for planet position data
+        const apiUrl = `https://api.le-systeme-solaire.net/rest/bodies/${planet}/position?data_format=json&days=${numberOfDays}&lat=${cityCoordinates[1]}&lon=${cityCoordinates[0]}&api_key=${NASA_API_KEY}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        // Extract relevant information from the API response
+        const positions = data.positions;
+
+        // Extract times from positions (you may need to adjust this based on the actual API response structure)
+        const planetTimes = positions.map(position => position.datetime);
+
+        // Display planet times on the webpage
+        displayPlanetTimes(planet, planetTimes);
+    } catch (error) {
+        console.error(`Error fetching ${planet} data from NASA API:`, error);
+        // If there's an error, display an error message on the webpage
+        displayPlanetTimes(planet, []);
+    }
+}
+
+// Function to display planet times
+function displayPlanetTimes(planet, times) {
+    // Find the corresponding planet element by ID
+    var planetElement = document.getElementById(planet);
+
+    // Clear the previous times
+    planetElement.innerHTML = "";
+
+    // Display the new times
+    times.forEach(time => {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(time));
+        planetElement.appendChild(li);
+    });
+}
+
+// ... (Other functions)
+
+function getMarsData() {
+    // Get selected city coordinates
+    var cityCoordinates = document.getElementById("city").value.split(",");
+    
+    // Get number of days
+    var numberOfDays = document.getElementById("days").value;
+
+    // Call the function to calculate and display Mercury times
+    calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays);
+}
+
+// Repeat the same structure for other planet functions...
+
+async function calculateMarsTimes(cityCoordinates, numberOfDays, callback) {
+    try {
+        // Replace 'YOUR_NASA_API_KEY' with your actual NASA API key
+        const NASA_API_KEY = 'lmX0acdHKcThJeyZVUGWkFgpZ4dpfvmfoWjSfmP1';
+
+        // Make a request to NASA's API for Mars position data
+        const apiUrl = `https://api.le-systeme-solaire.net/rest/bodies/mars/position?data_format=json&days=${numberOfDays}&lat=${cityCoordinates[1]}&lon=${cityCoordinates[0]}&api_key=${NASA_API_KEY}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        // Extract relevant information from the API response
+        const positions = data.positions;
+
+        // Extract times from positions (you may need to adjust this based on the actual API response structure)
+        const marsTimes = positions.map(position => position.datetime);
+
+        // Invoke the callback function with Mars times
+        callback(marsTimes);
+    } catch (error) {
+        console.error('Error fetching data from NASA API:', error);
+        // If there's an error, invoke the callback function with an empty array
+        callback([]);
+    }
+}
+
+function calculateAndDisplayMarsTimes(cityCoordinates, numberOfDays) {
+    // Call the function to calculate Mars times
+    calculateMarsTimes(cityCoordinates, numberOfDays, function (marsTimes) {
+        // Display Mars times on the webpage
+        displayPlanetTimes("mars", marsTimes);
+    });
+}
+
+// Repeat the same structure for other planet functions...
+
+
+
     // Initialize Leaflet map
     var map = L.map('map').setView([0, 0], 2);
 
@@ -685,7 +1039,7 @@ img {
 
     // Update moon location when map is zoomed
     updateMoonLocation();
+    
 
 </script>
 
-</script>
