@@ -198,6 +198,23 @@ img {
         #map {
       height: 500px;
     }
+        .collapsible {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: black;
+}
     </style>
      <title>Blinking Image</title>
 </head>
@@ -386,13 +403,22 @@ img {
     <div class="container-space"></div>
 
     <div id="dataContainer5">
-         <h4>The other website is calculating calenders they do a mistake in calender they show dark blue as new date of solar month and light gray highlited as current date</h4>
-        <iframe id="h2gFrame" title="islamic-calendar" style="width: 250px; height: 312px; border: 1px solid #ddd;" scrolling="no" src="https://www.islamicfinder.org/islamic-calendar/widgetGregorian?type=Hijri"> </iframe>
-        
+        <div id="dataContainer3">
+<button class="collapsible">Weather</button>
+    <div class="content">
+<a class="weatherwidget-io" href="https://forecast7.com/en/33d7373d09/islamabad/" data-label_1="ISLAMABAD" data-label_2="WEATHER" data-theme="marine" >ISLAMABAD WEATHER</a>
+<a class="weatherwidget-io" href="https://forecast7.com/en/30d1671d52/multan/" data-label_1="MULTAN" data-label_2="WEATHER" data-theme="grass" >MULTAN WEATHER</a>
+<a class="weatherwidget-io" href="https://forecast7.com/en/37d8941d13/batman/" data-label_1="BATMAN" data-label_2="WEATHER" data-theme="sky" >BATMAN WEATHER</a>
+<a class="weatherwidget-io" href="https://forecast7.com/en/21d3939d86/mecca/" data-label_1="MAKKAH" data-label_2="WEATHER" data-theme="metallic" >MAKKAH WEATHER</a>
+<a class="weatherwidget-io" href="https://forecast7.com/en/24d5239d57/medina/" data-label_1="MADINAH" data-label_2="WEATHER" data-theme="dark" >MADINAH WEATHER</a>
+<a class="weatherwidget-io" href="https://forecast7.com/en/31d3534d31/gaza-strip/" data-label_1="GAZA Palestine" data-label_2="WEATHER" data-theme="kiwi" >GAZA Palestine WEATHER</a>
+<a class="weatherwidget-io" href="https://forecast7.com/en/31d7735d21/jerusalem/" data-label_1="JERUSALEM (Palestine)" data-label_2="WEATHER" data-theme="pool_table" >JERUSALEM (Palestine) WEATHER</a>
 
+    </div>
 
- <iframe style="width: 182px; height: 358px; border: 1px solid #ddd;" scrolling="no" src="https://www.islamicfinder.org/prayer-widget/"> </iframe>
-        </div>
+    </div>
+
+</div>
         
          <div class="container-space"></div>
     <div id="dataContainer2">
@@ -515,7 +541,22 @@ img {
 
 
     <script>
+     document.addEventListener('DOMContentLoaded', function() {
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    });
 
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
           <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
 <script>
